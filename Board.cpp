@@ -4,8 +4,11 @@
 
 void Board::loadFromFile(const std::string& fileName)
 {
+    grid.clear();
+
     std::ifstream file(fileName);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         throw std::runtime_error("Cannot open file: " + fileName);
     }
 
@@ -16,7 +19,7 @@ void Board::loadFromFile(const std::string& fileName)
         size = std::stoi(firstLine);
     }
     catch (...) {
-        throw std::runtime_error("First line must be a number (board size).");
+        throw std::runtime_error("First line must be a number of symbols (board size).");
     }
 
     if (size < 2 || size > 64) {
@@ -25,37 +28,62 @@ void Board::loadFromFile(const std::string& fileName)
 
     int sCount = 0, fCount = 0;
 
-    for (size_t row = 0; row < size; row++) {
+    for (int row = 0; row < size; row++)
+    {
         std::string line;
-        std::getline(file, line);
 
-        if (line.size() != size) {
-            throw std::runtime_error("Row " + std::to_string(row) + " has wrong length.");
+        if (!std::getline(file, line))
+        {
+            throw std::runtime_error("Missing rows in level file.");
         }
 
-        for (size_t col = 0; col < size; col++) {
+        if ((int)line.size() != size)
+        {
+            throw std::runtime_error("Row " + std::to_string(row+1) + " has wrong length.");
+        }
+
+        for (int col = 0; col < size; col++)
+        {
             char c = line[col];
 
-            if (c != '*' && c != ' ' && c != 'S' && c != 'F' && c != 'E') {
+            if (c != '*' && c != ' ' && c != 'S' && c != 'F' && c != 'E' && c != 'W' && c != 'X') {
 
-                throw std::runtime_error( std::string("Invalid character '") + c + "' at row " +
-                    std::to_string(row) + ", col " + std::to_string(col));
+                throw std::runtime_error( std::string("Invalid character '") +
+                    c + "' at row " + std::to_string(row+1) + ", col " + std::to_string(col+1));
             }
-            if (c == 'S') { sCount++; startPos = { (int)col, (int)row }; }
-            if (c == 'F') { fCount++; finishPos = { (int)col, (int)row }; }
+            if (c == 'S') {
+                sCount++;
+                startPos = {col, row };
+            }
+            if (c == 'F') { 
+                fCount++;
+                finishPos = { col, row };
+            }
         }
 
         grid.push_back(line);
     }
+    std::string extra;
+    if (std::getline(file, extra)) {
+        throw std::runtime_error("Too many rows in level file.");
+    }
 
-    if (sCount != 1) throw std::runtime_error("Board must have exactly one 'S'.");
-    if (fCount != 1) throw std::runtime_error("Board must have exactly one 'F'.");
+    if (sCount != 1)
+    {
+        throw std::runtime_error("Board must have exactly one 'S'.");
+    }
+    if (fCount != 1)
+    {
+        throw std::runtime_error("Board must have exactly one 'F'.");
+    }
 }
 
 void Board::print() const
 {
-    for (int row = 0; row < size; row++) {
-        for (int col = 0; col < size; col++) {
+    for (int row = 0; row < size; row++) 
+    {
+        for (int col = 0; col < size; col++) 
+        {
             std::cout << grid[row][col];
         }
         std::cout << '\n';

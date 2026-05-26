@@ -1,10 +1,10 @@
 #pragma once
 #include "Hero.h"
 
-class Wizard : public Hero
+class Knight : public Hero
 {
 public:
-    Wizard(Point startPos);
+    Knight(Point startPos);
     std::string getName() const override;
     std::string getAbilityName() const override;
     std::string useAbility(Board& board, const std::vector<Point>& enemyPositions) override;

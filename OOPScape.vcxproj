@@ -124,11 +124,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="ChaseEnemy.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FastEnemy.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="OOPScape.cpp" />
+    <ClCompile Include="RandomEnemy.cpp" />
+    <ClCompile Include="Rogue.cpp" />
+    <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BFS.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="ChaseEnemy.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FastEnemy.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Header.h" />
+    <ClInclude Include="Hero.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="RandomEnemy.h" />
+    <ClInclude Include="Rogue.h" />
+    <ClInclude Include="Wizard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
